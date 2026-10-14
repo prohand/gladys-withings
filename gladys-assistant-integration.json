@@ -1,0 +1,1045 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Withings",
+  "description": {
+    "en": "Weight, blood pressure, activity and sleep from your Withings scales, watches and monitors.",
+    "fr": "Poids, tension, activité et sommeil de vos balances, montres et tensiomètres Withings.",
+    "de": "Gewicht, Blutdruck, Aktivität und Schlaf deiner Withings-Waagen, -Uhren und -Messgeräte.",
+    "es": "Peso, tensión, actividad y sueño de sus básculas, relojes y tensiómetros Withings."
+  },
+  "version": "1.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-withings:1.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-withings/main/cover.png",
+  "categories": ["services"],
+  "transports": ["cloud"],
+  "webhooks": [
+    {
+      "key": "notify",
+      "label": {
+        "en": "Withings notifications",
+        "fr": "Notifications Withings",
+        "de": "Withings-Benachrichtigungen",
+        "es": "Notificaciones de Withings"
+      },
+      "mode": "fire_and_forget"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
+      },
+      "description": {
+        "en": "Withings data comes from the Withings cloud, through a developer app of your own (free). 1. On developer.withings.com, create an application (Public API integration). 2. Add the callback URL of your Gladys: click Connect once below, then run \"Test the connection\" to see it, or read it in the integration logs. 3. Copy the Client ID and the Client secret here, save, then click Connect and sign in to Withings.",
+        "fr": "Les données Withings viennent du cloud Withings, via une application développeur à vous (gratuite). 1. Sur developer.withings.com, créez une application (Public API integration). 2. Ajoutez l'URL de rappel de votre Gladys : cliquez une fois sur Connecter ci-dessous, puis lancez « Tester la connexion » pour la voir, ou lisez-la dans les logs de l'intégration. 3. Copiez ici le Client ID et le Client secret, enregistrez, puis cliquez sur Connecter et identifiez-vous chez Withings.",
+        "de": "Die Withings-Daten kommen aus der Withings-Cloud, über eine eigene (kostenlose) Entwickler-App. 1. Erstelle auf developer.withings.com eine Anwendung (Public API integration). 2. Füge die Callback-URL deines Gladys hinzu: klicke unten einmal auf Verbinden und starte dann „Verbindung testen“, um sie zu sehen, oder lies sie in den Logs der Integration. 3. Kopiere Client-ID und Client-Secret hierher, speichere, klicke dann auf Verbinden und melde dich bei Withings an.",
+        "es": "Los datos de Withings vienen de la nube de Withings, a través de una aplicación de desarrollador propia (gratuita). 1. En developer.withings.com, cree una aplicación (Public API integration). 2. Añada la URL de retorno de su Gladys: haga clic una vez en Conectar abajo y luego ejecute «Probar la conexión» para verla, o léala en los registros de la integración. 3. Copie aquí el Client ID y el Client secret, guarde, luego haga clic en Conectar e inicie sesión en Withings."
+      },
+      "links": [
+        {
+          "url": "https://developer.withings.com/dashboard/",
+          "label": {
+            "en": "Withings developer dashboard",
+            "fr": "Espace développeur Withings",
+            "de": "Withings-Entwicklerbereich",
+            "es": "Panel de desarrollador de Withings"
+          }
+        },
+        {
+          "url": "https://github.com/prohand/gladys-withings/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "client_id",
+      "type": "string",
+      "label": {
+        "en": "Client ID",
+        "fr": "Client ID",
+        "de": "Client-ID",
+        "es": "Client ID"
+      },
+      "description": {
+        "en": "The Client ID of your Withings application.",
+        "fr": "Le Client ID de votre application Withings.",
+        "de": "Die Client-ID deiner Withings-Anwendung.",
+        "es": "El Client ID de su aplicación Withings."
+      },
+      "placeholder": {
+        "en": "e.g. 3a7f...c91",
+        "fr": "ex. 3a7f...c91",
+        "de": "z. B. 3a7f...c91",
+        "es": "p. ej. 3a7f...c91"
+      },
+      "required": true
+    },
+    {
+      "key": "client_secret",
+      "type": "secret",
+      "label": {
+        "en": "Client secret",
+        "fr": "Client secret",
+        "de": "Client-Secret",
+        "es": "Client secret"
+      },
+      "description": {
+        "en": "The Client secret of your Withings application. Stored in Gladys, never shown again.",
+        "fr": "Le Client secret de votre application Withings. Stocké dans Gladys, jamais réaffiché.",
+        "de": "Das Client-Secret deiner Withings-Anwendung. In Gladys gespeichert, nie wieder angezeigt.",
+        "es": "El Client secret de su aplicación Withings. Guardado en Gladys, nunca se vuelve a mostrar."
+      },
+      "required": true
+    },
+    {
+      "key": "withings_account",
+      "type": "oauth2",
+      "label": {
+        "en": "Withings account",
+        "fr": "Compte Withings",
+        "de": "Withings-Konto",
+        "es": "Cuenta Withings"
+      },
+      "description": {
+        "en": "Save the Client ID and secret first, then click Connect and sign in to Withings.",
+        "fr": "Enregistrez d'abord le Client ID et le secret, puis cliquez sur Connecter et identifiez-vous chez Withings.",
+        "de": "Speichere zuerst Client-ID und Secret, klicke dann auf Verbinden und melde dich bei Withings an.",
+        "es": "Guarde primero el Client ID y el secret, luego haga clic en Conectar e inicie sesión en Withings."
+      }
+    },
+    {
+      "key": "refresh_interval",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (min)",
+        "fr": "Intervalle de rafraîchissement (min)",
+        "de": "Aktualisierungsintervall (min)",
+        "es": "Intervalo de actualización (min)"
+      },
+      "description": {
+        "en": "How often Withings is read, in minutes. With Gladys Plus, new measures also arrive within seconds.",
+        "fr": "Fréquence de lecture de Withings, en minutes. Avec Gladys Plus, les nouvelles mesures arrivent aussi en quelques secondes.",
+        "de": "Wie oft Withings gelesen wird, in Minuten. Mit Gladys Plus kommen neue Messungen zusätzlich innerhalb von Sekunden an.",
+        "es": "Cada cuánto se lee Withings, en minutos. Con Gladys Plus, las nuevas mediciones también llegan en segundos."
+      },
+      "required": false,
+      "default": 30,
+      "min": 5,
+      "max": 1440
+    },
+    {
+      "key": "steps_goal",
+      "type": "number",
+      "label": {
+        "en": "Daily steps goal",
+        "fr": "Objectif de pas quotidien",
+        "de": "Tägliches Schrittziel",
+        "es": "Objetivo diario de pasos"
+      },
+      "description": {
+        "en": "The \"Steps goal reached\" scene trigger fires once a day when today's steps reach it.",
+        "fr": "Le déclencheur de scène « Objectif de pas atteint » se déclenche une fois par jour quand les pas du jour l'atteignent.",
+        "de": "Der Szenenauslöser „Schrittziel erreicht“ wird einmal am Tag ausgelöst, wenn die heutigen Schritte es erreichen.",
+        "es": "El disparador de escena «Objetivo de pasos alcanzado» se activa una vez al día cuando los pasos de hoy lo alcanzan."
+      },
+      "required": false,
+      "default": 10000,
+      "min": 100,
+      "max": 100000
+    },
+    {
+      "key": "use_webhooks",
+      "type": "boolean",
+      "label": {
+        "en": "Real-time notifications (Gladys Plus)",
+        "fr": "Notifications temps réel (Gladys Plus)",
+        "de": "Echtzeit-Benachrichtigungen (Gladys Plus)",
+        "es": "Notificaciones en tiempo real (Gladys Plus)"
+      },
+      "description": {
+        "en": "Ask Withings to notify Gladys of new data through Gladys Plus: measures in seconds, and the \"in bed\" / \"out of bed\" events of a Sleep Analyzer. Without Gladys Plus, the refresh interval applies.",
+        "fr": "Demande à Withings de prévenir Gladys des nouvelles données via Gladys Plus : les mesures en quelques secondes, et les événements « au lit » / « hors du lit » d'un Sleep Analyzer. Sans Gladys Plus, l'intervalle de rafraîchissement s'applique.",
+        "de": "Bittet Withings, Gladys über Gladys Plus über neue Daten zu informieren: Messungen in Sekunden und die Ereignisse „im Bett“ / „aus dem Bett“ eines Sleep Analyzer. Ohne Gladys Plus gilt das Aktualisierungsintervall.",
+        "es": "Pide a Withings que avise a Gladys de los nuevos datos a través de Gladys Plus: mediciones en segundos y los eventos «en la cama» / «fuera de la cama» de un Sleep Analyzer. Sin Gladys Plus, se aplica el intervalo de actualización."
+      },
+      "required": false,
+      "default": true
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 30
+    },
+    {
+      "key": "sync_now",
+      "label": {
+        "en": "Synchronize now",
+        "fr": "Synchroniser maintenant",
+        "de": "Jetzt synchronisieren",
+        "es": "Sincronizar ahora"
+      },
+      "timeout_seconds": 90
+    },
+    {
+      "key": "unlink_account",
+      "label": {
+        "en": "Disconnect the Withings account",
+        "fr": "Déconnecter le compte Withings",
+        "de": "Withings-Konto trennen",
+        "es": "Desconectar la cuenta Withings"
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "new_measurement",
+      "label": {
+        "en": "New Withings measurement",
+        "fr": "Nouvelle mesure Withings",
+        "de": "Neue Withings-Messung",
+        "es": "Nueva medición Withings"
+      },
+      "description": {
+        "en": "A weigh-in, a blood pressure reading, a temperature... was recorded.",
+        "fr": "Une pesée, une prise de tension, une température... a été enregistrée.",
+        "de": "Eine Wägung, eine Blutdruckmessung, eine Temperatur... wurde erfasst.",
+        "es": "Se registró una pesada, una toma de tensión, una temperatura..."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Withings account",
+            "fr": "Compte Withings",
+            "de": "Withings-Konto",
+            "es": "Cuenta Withings"
+          }
+        },
+        {
+          "key": "kind",
+          "type": "multi_select",
+          "label": {
+            "en": "Kind of measurement",
+            "fr": "Type de mesure",
+            "de": "Art der Messung",
+            "es": "Tipo de medición"
+          },
+          "options": [
+            {
+              "value": "body",
+              "label": {
+                "en": "Weigh-in",
+                "fr": "Pesée",
+                "de": "Wägung",
+                "es": "Pesada"
+              }
+            },
+            {
+              "value": "blood_pressure",
+              "label": {
+                "en": "Blood pressure",
+                "fr": "Tension artérielle",
+                "de": "Blutdruck",
+                "es": "Tensión arterial"
+              }
+            },
+            {
+              "value": "temperature",
+              "label": {
+                "en": "Temperature",
+                "fr": "Température",
+                "de": "Temperatur",
+                "es": "Temperatura"
+              }
+            },
+            {
+              "value": "spo2",
+              "label": {
+                "en": "Blood oxygen",
+                "fr": "Oxygène sanguin",
+                "de": "Blutsauerstoff",
+                "es": "Oxígeno en sangre"
+              }
+            },
+            {
+              "value": "other",
+              "label": {
+                "en": "Other",
+                "fr": "Autre",
+                "de": "Andere",
+                "es": "Otra"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "kind",
+          "type": "string",
+          "label": {
+            "en": "Kind of measurement",
+            "fr": "Type de mesure",
+            "de": "Art der Messung",
+            "es": "Tipo de medición"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": {
+            "en": "Date of the measurement",
+            "fr": "Date de la mesure",
+            "de": "Datum der Messung",
+            "es": "Fecha de la medición"
+          }
+        },
+        {
+          "key": "weight",
+          "type": "number",
+          "label": {
+            "en": "Weight (kg)",
+            "fr": "Poids (kg)",
+            "de": "Gewicht (kg)",
+            "es": "Peso (kg)"
+          }
+        },
+        {
+          "key": "fat_ratio",
+          "type": "number",
+          "label": {
+            "en": "Fat ratio (%)",
+            "fr": "Masse grasse (%) (%)",
+            "de": "Fettanteil (%)",
+            "es": "Grasa corporal (%) (%)"
+          }
+        },
+        {
+          "key": "fat_mass",
+          "type": "number",
+          "label": {
+            "en": "Fat mass (kg)",
+            "fr": "Masse grasse (kg)",
+            "de": "Fettmasse (kg)",
+            "es": "Masa grasa (kg)"
+          }
+        },
+        {
+          "key": "fat_free_mass",
+          "type": "number",
+          "label": {
+            "en": "Fat free mass (kg)",
+            "fr": "Masse maigre (kg)",
+            "de": "Fettfreie Masse (kg)",
+            "es": "Masa magra (kg)"
+          }
+        },
+        {
+          "key": "muscle_mass",
+          "type": "number",
+          "label": {
+            "en": "Muscle mass (kg)",
+            "fr": "Masse musculaire (kg)",
+            "de": "Muskelmasse (kg)",
+            "es": "Masa muscular (kg)"
+          }
+        },
+        {
+          "key": "bone_mass",
+          "type": "number",
+          "label": {
+            "en": "Bone mass (kg)",
+            "fr": "Masse osseuse (kg)",
+            "de": "Knochenmasse (kg)",
+            "es": "Masa ósea (kg)"
+          }
+        },
+        {
+          "key": "hydration",
+          "type": "number",
+          "label": {
+            "en": "Body water (kg)",
+            "fr": "Eau corporelle (kg)",
+            "de": "Körperwasser (kg)",
+            "es": "Agua corporal (kg)"
+          }
+        },
+        {
+          "key": "visceral_fat",
+          "type": "number",
+          "label": {
+            "en": "Visceral fat index",
+            "fr": "Indice de graisse viscérale",
+            "de": "Viszeralfett-Index",
+            "es": "Índice de grasa visceral"
+          }
+        },
+        {
+          "key": "systolic",
+          "type": "number",
+          "label": {
+            "en": "Systolic blood pressure (mmHg)",
+            "fr": "Tension systolique (mmHg)",
+            "de": "Systolischer Blutdruck (mmHg)",
+            "es": "Presión sistólica (mmHg)"
+          }
+        },
+        {
+          "key": "diastolic",
+          "type": "number",
+          "label": {
+            "en": "Diastolic blood pressure (mmHg)",
+            "fr": "Tension diastolique (mmHg)",
+            "de": "Diastolischer Blutdruck (mmHg)",
+            "es": "Presión diastólica (mmHg)"
+          }
+        },
+        {
+          "key": "heart_rate",
+          "type": "number",
+          "label": {
+            "en": "Heart rate (bpm)",
+            "fr": "Fréquence cardiaque (bpm)",
+            "de": "Herzfrequenz (bpm)",
+            "es": "Frecuencia cardíaca (bpm)"
+          }
+        },
+        {
+          "key": "spo2",
+          "type": "number",
+          "label": {
+            "en": "Blood oxygen (SpO2) (%)",
+            "fr": "Oxygène sanguin (SpO2) (%)",
+            "de": "Blutsauerstoff (SpO2) (%)",
+            "es": "Oxígeno en sangre (SpO2) (%)"
+          }
+        },
+        {
+          "key": "body_temperature",
+          "type": "number",
+          "label": {
+            "en": "Body temperature (°C)",
+            "fr": "Température corporelle (°C)",
+            "de": "Körpertemperatur (°C)",
+            "es": "Temperatura corporal (°C)"
+          }
+        },
+        {
+          "key": "skin_temperature",
+          "type": "number",
+          "label": {
+            "en": "Skin temperature (°C)",
+            "fr": "Température cutanée (°C)",
+            "de": "Hauttemperatur (°C)",
+            "es": "Temperatura de la piel (°C)"
+          }
+        },
+        {
+          "key": "pulse_wave_velocity",
+          "type": "number",
+          "label": {
+            "en": "Pulse wave velocity (m/s)",
+            "fr": "Vitesse de l'onde de pouls (m/s)",
+            "de": "Pulswellengeschwindigkeit (m/s)",
+            "es": "Velocidad de la onda de pulso (m/s)"
+          }
+        },
+        {
+          "key": "vascular_age",
+          "type": "number",
+          "label": {
+            "en": "Vascular age",
+            "fr": "Âge vasculaire",
+            "de": "Gefäßalter",
+            "es": "Edad vascular"
+          }
+        }
+      ]
+    },
+    {
+      "key": "bed_in",
+      "label": {
+        "en": "Got into bed",
+        "fr": "Couché",
+        "de": "Ins Bett gegangen",
+        "es": "Se acostó"
+      },
+      "description": {
+        "en": "A Withings Sleep Analyzer detected someone getting into bed (requires Gladys Plus).",
+        "fr": "Un Withings Sleep Analyzer a détecté quelqu'un qui se couche (nécessite Gladys Plus).",
+        "de": "Ein Withings Sleep Analyzer hat erkannt, dass jemand ins Bett geht (erfordert Gladys Plus).",
+        "es": "Un Withings Sleep Analyzer detectó que alguien se acostó (requiere Gladys Plus)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Withings account",
+            "fr": "Compte Withings",
+            "de": "Withings-Konto",
+            "es": "Cuenta Withings"
+          }
+        }
+      ]
+    },
+    {
+      "key": "bed_out",
+      "label": {
+        "en": "Got out of bed",
+        "fr": "Levé",
+        "de": "Aus dem Bett aufgestanden",
+        "es": "Se levantó"
+      },
+      "description": {
+        "en": "A Withings Sleep Analyzer detected someone getting out of bed (requires Gladys Plus).",
+        "fr": "Un Withings Sleep Analyzer a détecté quelqu'un qui se lève (nécessite Gladys Plus).",
+        "de": "Ein Withings Sleep Analyzer hat erkannt, dass jemand aufsteht (erfordert Gladys Plus).",
+        "es": "Un Withings Sleep Analyzer detectó que alguien se levantó (requiere Gladys Plus)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Withings account",
+            "fr": "Compte Withings",
+            "de": "Withings-Konto",
+            "es": "Cuenta Withings"
+          }
+        }
+      ]
+    },
+    {
+      "key": "sleep_summary_ready",
+      "label": {
+        "en": "Night summary available",
+        "fr": "Résumé de la nuit disponible",
+        "de": "Nachtzusammenfassung verfügbar",
+        "es": "Resumen de la noche disponible"
+      },
+      "description": {
+        "en": "Withings finished analysing last night.",
+        "fr": "Withings a fini d'analyser la nuit dernière.",
+        "de": "Withings hat die letzte Nacht ausgewertet.",
+        "es": "Withings terminó de analizar la noche pasada."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Withings account",
+            "fr": "Compte Withings",
+            "de": "Withings-Konto",
+            "es": "Cuenta Withings"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "duration_minutes",
+          "type": "number",
+          "label": {
+            "en": "Sleep duration (min)",
+            "fr": "Durée de sommeil (min)",
+            "de": "Schlafdauer (min)",
+            "es": "Duración del sueño (min)"
+          }
+        },
+        {
+          "key": "sleep_score",
+          "type": "number",
+          "label": {
+            "en": "Sleep score",
+            "fr": "Score de sommeil",
+            "de": "Schlafwert",
+            "es": "Puntuación del sueño"
+          }
+        },
+        {
+          "key": "wakeup_count",
+          "type": "number",
+          "label": {
+            "en": "Wake-ups",
+            "fr": "Réveils",
+            "de": "Aufwachphasen",
+            "es": "Despertares"
+          }
+        }
+      ]
+    },
+    {
+      "key": "steps_goal_reached",
+      "label": {
+        "en": "Steps goal reached",
+        "fr": "Objectif de pas atteint",
+        "de": "Schrittziel erreicht",
+        "es": "Objetivo de pasos alcanzado"
+      },
+      "description": {
+        "en": "Today's steps reached the goal of the configuration (once a day).",
+        "fr": "Les pas du jour ont atteint l'objectif de la configuration (une fois par jour).",
+        "de": "Die heutigen Schritte haben das Ziel der Konfiguration erreicht (einmal am Tag).",
+        "es": "Los pasos de hoy alcanzaron el objetivo de la configuración (una vez al día)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Withings account",
+            "fr": "Compte Withings",
+            "de": "Withings-Konto",
+            "es": "Cuenta Withings"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "steps",
+          "type": "number",
+          "label": {
+            "en": "Steps today",
+            "fr": "Pas du jour",
+            "de": "Schritte heute",
+            "es": "Pasos de hoy"
+          }
+        },
+        {
+          "key": "goal",
+          "type": "number",
+          "label": {
+            "en": "Goal",
+            "fr": "Objectif",
+            "de": "Ziel",
+            "es": "Objetivo"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "refresh_data",
+      "label": {
+        "en": "Refresh Withings data",
+        "fr": "Actualiser les données Withings",
+        "de": "Withings-Daten aktualisieren",
+        "es": "Actualizar los datos de Withings"
+      },
+      "description": {
+        "en": "Read Withings now instead of waiting for the next refresh.",
+        "fr": "Lit Withings maintenant au lieu d'attendre le prochain rafraîchissement.",
+        "de": "Liest Withings jetzt, statt auf die nächste Aktualisierung zu warten.",
+        "es": "Lee Withings ahora en lugar de esperar a la próxima actualización."
+      },
+      "timeout_seconds": 90,
+      "outputs": [
+        {
+          "key": "new_measurements",
+          "type": "number",
+          "label": {
+            "en": "New measurements",
+            "fr": "Nouvelles mesures",
+            "de": "Neue Messungen",
+            "es": "Mediciones nuevas"
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_last_measure",
+      "label": {
+        "en": "Read the last Withings value",
+        "fr": "Lire la dernière valeur Withings",
+        "de": "Letzten Withings-Wert lesen",
+        "es": "Leer el último valor de Withings"
+      },
+      "description": {
+        "en": "The last known value of a measure, to use in the next blocks of the scene.",
+        "fr": "La dernière valeur connue d'une mesure, à utiliser dans les blocs suivants de la scène.",
+        "de": "Der letzte bekannte Wert einer Messung, für die nächsten Blöcke der Szene.",
+        "es": "El último valor conocido de una medición, para usarlo en los siguientes bloques de la escena."
+      },
+      "timeout_seconds": 10,
+      "fields": [
+        {
+          "key": "measure",
+          "type": "select",
+          "label": {
+            "en": "Measure",
+            "fr": "Mesure",
+            "de": "Messung",
+            "es": "Medición"
+          },
+          "required": true,
+          "options": [
+            {
+              "value": "weight",
+              "label": {
+                "en": "Weight (kg)",
+                "fr": "Poids (kg)",
+                "de": "Gewicht (kg)",
+                "es": "Peso (kg)"
+              }
+            },
+            {
+              "value": "fat_ratio",
+              "label": {
+                "en": "Fat ratio (%)",
+                "fr": "Masse grasse (%) (%)",
+                "de": "Fettanteil (%)",
+                "es": "Grasa corporal (%) (%)"
+              }
+            },
+            {
+              "value": "fat_mass",
+              "label": {
+                "en": "Fat mass (kg)",
+                "fr": "Masse grasse (kg)",
+                "de": "Fettmasse (kg)",
+                "es": "Masa grasa (kg)"
+              }
+            },
+            {
+              "value": "fat_free_mass",
+              "label": {
+                "en": "Fat free mass (kg)",
+                "fr": "Masse maigre (kg)",
+                "de": "Fettfreie Masse (kg)",
+                "es": "Masa magra (kg)"
+              }
+            },
+            {
+              "value": "muscle_mass",
+              "label": {
+                "en": "Muscle mass (kg)",
+                "fr": "Masse musculaire (kg)",
+                "de": "Muskelmasse (kg)",
+                "es": "Masa muscular (kg)"
+              }
+            },
+            {
+              "value": "bone_mass",
+              "label": {
+                "en": "Bone mass (kg)",
+                "fr": "Masse osseuse (kg)",
+                "de": "Knochenmasse (kg)",
+                "es": "Masa ósea (kg)"
+              }
+            },
+            {
+              "value": "hydration",
+              "label": {
+                "en": "Body water (kg)",
+                "fr": "Eau corporelle (kg)",
+                "de": "Körperwasser (kg)",
+                "es": "Agua corporal (kg)"
+              }
+            },
+            {
+              "value": "visceral_fat",
+              "label": {
+                "en": "Visceral fat index",
+                "fr": "Indice de graisse viscérale",
+                "de": "Viszeralfett-Index",
+                "es": "Índice de grasa visceral"
+              }
+            },
+            {
+              "value": "systolic",
+              "label": {
+                "en": "Systolic blood pressure (mmHg)",
+                "fr": "Tension systolique (mmHg)",
+                "de": "Systolischer Blutdruck (mmHg)",
+                "es": "Presión sistólica (mmHg)"
+              }
+            },
+            {
+              "value": "diastolic",
+              "label": {
+                "en": "Diastolic blood pressure (mmHg)",
+                "fr": "Tension diastolique (mmHg)",
+                "de": "Diastolischer Blutdruck (mmHg)",
+                "es": "Presión diastólica (mmHg)"
+              }
+            },
+            {
+              "value": "heart_rate",
+              "label": {
+                "en": "Heart rate (bpm)",
+                "fr": "Fréquence cardiaque (bpm)",
+                "de": "Herzfrequenz (bpm)",
+                "es": "Frecuencia cardíaca (bpm)"
+              }
+            },
+            {
+              "value": "spo2",
+              "label": {
+                "en": "Blood oxygen (SpO2) (%)",
+                "fr": "Oxygène sanguin (SpO2) (%)",
+                "de": "Blutsauerstoff (SpO2) (%)",
+                "es": "Oxígeno en sangre (SpO2) (%)"
+              }
+            },
+            {
+              "value": "body_temperature",
+              "label": {
+                "en": "Body temperature (°C)",
+                "fr": "Température corporelle (°C)",
+                "de": "Körpertemperatur (°C)",
+                "es": "Temperatura corporal (°C)"
+              }
+            },
+            {
+              "value": "skin_temperature",
+              "label": {
+                "en": "Skin temperature (°C)",
+                "fr": "Température cutanée (°C)",
+                "de": "Hauttemperatur (°C)",
+                "es": "Temperatura de la piel (°C)"
+              }
+            },
+            {
+              "value": "pulse_wave_velocity",
+              "label": {
+                "en": "Pulse wave velocity (m/s)",
+                "fr": "Vitesse de l'onde de pouls (m/s)",
+                "de": "Pulswellengeschwindigkeit (m/s)",
+                "es": "Velocidad de la onda de pulso (m/s)"
+              }
+            },
+            {
+              "value": "vascular_age",
+              "label": {
+                "en": "Vascular age",
+                "fr": "Âge vasculaire",
+                "de": "Gefäßalter",
+                "es": "Edad vascular"
+              }
+            },
+            {
+              "value": "sleep_duration",
+              "label": {
+                "en": "Sleep duration (min)",
+                "fr": "Durée de sommeil (min)",
+                "de": "Schlafdauer (min)",
+                "es": "Duración del sueño (min)"
+              }
+            },
+            {
+              "value": "deep_sleep_duration",
+              "label": {
+                "en": "Deep sleep (min)",
+                "fr": "Sommeil profond (min)",
+                "de": "Tiefschlaf (min)",
+                "es": "Sueño profundo (min)"
+              }
+            },
+            {
+              "value": "light_sleep_duration",
+              "label": {
+                "en": "Light sleep (min)",
+                "fr": "Sommeil léger (min)",
+                "de": "Leichtschlaf (min)",
+                "es": "Sueño ligero (min)"
+              }
+            },
+            {
+              "value": "rem_sleep_duration",
+              "label": {
+                "en": "REM sleep (min)",
+                "fr": "Sommeil paradoxal (min)",
+                "de": "REM-Schlaf (min)",
+                "es": "Sueño REM (min)"
+              }
+            },
+            {
+              "value": "sleep_score",
+              "label": {
+                "en": "Sleep score",
+                "fr": "Score de sommeil",
+                "de": "Schlafwert",
+                "es": "Puntuación del sueño"
+              }
+            },
+            {
+              "value": "wakeup_count",
+              "label": {
+                "en": "Wake-ups",
+                "fr": "Réveils",
+                "de": "Aufwachphasen",
+                "es": "Despertares"
+              }
+            },
+            {
+              "value": "sleep_heart_rate",
+              "label": {
+                "en": "Heart rate during sleep",
+                "fr": "Pouls pendant le sommeil",
+                "de": "Puls im Schlaf",
+                "es": "Pulso durante el sueño"
+              }
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "key": "found",
+          "type": "boolean",
+          "label": {
+            "en": "Value known",
+            "fr": "Valeur connue",
+            "de": "Wert bekannt",
+            "es": "Valor conocido"
+          }
+        },
+        {
+          "key": "value",
+          "type": "number",
+          "label": {
+            "en": "Value",
+            "fr": "Valeur",
+            "de": "Wert",
+            "es": "Valor"
+          }
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "label": {
+            "en": "Unit",
+            "fr": "Unité",
+            "de": "Einheit",
+            "es": "Unidad"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": {
+            "en": "Date of the value",
+            "fr": "Date de la valeur",
+            "de": "Datum des Werts",
+            "es": "Fecha del valor"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "withings_summary",
+      "label": {
+        "en": "Withings health",
+        "fr": "Santé Withings",
+        "de": "Withings Gesundheit",
+        "es": "Salud Withings"
+      },
+      "description": {
+        "en": "Weight, steps, sleep and the state of the Withings link.",
+        "fr": "Poids, pas, sommeil et état de la liaison Withings.",
+        "de": "Gewicht, Schritte, Schlaf und Zustand der Withings-Verbindung.",
+        "es": "Peso, pasos, sueño y estado de la conexión con Withings."
+      },
+      "icon": "heart",
+      "action_timeout_seconds": 90
+    },
+    {
+      "key": "withings_weight",
+      "label": {
+        "en": "Weight trend",
+        "fr": "Évolution du poids",
+        "de": "Gewichtsverlauf",
+        "es": "Evolución del peso"
+      },
+      "description": {
+        "en": "The weight curve from your Withings scale.",
+        "fr": "La courbe de poids de votre balance Withings.",
+        "de": "Die Gewichtskurve deiner Withings-Waage.",
+        "es": "La curva de peso de su báscula Withings."
+      },
+      "icon": "trending-down",
+      "settings": [
+        {
+          "key": "interval",
+          "type": "select",
+          "label": {
+            "en": "Period",
+            "fr": "Période",
+            "de": "Zeitraum",
+            "es": "Periodo"
+          },
+          "required": false,
+          "default": "last-month",
+          "options": [
+            {
+              "value": "last-week",
+              "label": {
+                "en": "Last week",
+                "fr": "Dernière semaine",
+                "de": "Letzte Woche",
+                "es": "Última semana"
+              }
+            },
+            {
+              "value": "last-month",
+              "label": {
+                "en": "Last month",
+                "fr": "Dernier mois",
+                "de": "Letzter Monat",
+                "es": "Último mes"
+              }
+            },
+            {
+              "value": "last-three-months",
+              "label": {
+                "en": "Last three months",
+                "fr": "Trois derniers mois",
+                "de": "Letzte drei Monate",
+                "es": "Últimos tres meses"
+              }
+            },
+            {
+              "value": "last-year",
+              "label": {
+                "en": "Last year",
+                "fr": "Dernière année",
+                "de": "Letztes Jahr",
+                "es": "Último año"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
