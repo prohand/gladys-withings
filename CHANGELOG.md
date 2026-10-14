@@ -6,6 +6,8 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-14
+
 ### Added
 
 - Withings account connection with the OAuth2 "Connect" button, through your own Withings developer app.
@@ -19,4 +21,5 @@ All notable changes to this integration are documented here. The format follows
 - Cloud transport badge on every device.
 - English, French, German and Spanish texts and documentation.
 
-[Unreleased]: https://github.com/prohand/gladys-withings/commits/main
+[Unreleased]: https://github.com/prohand/gladys-withings/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/prohand/gladys-withings/releases/tag/v1.0.1
