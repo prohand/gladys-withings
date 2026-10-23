@@ -1,6 +1,6 @@
 {
   "name": "gladys-withings",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Gladys Assistant external integration for Withings health devices (scales, blood pressure monitors, watches, sleep analyzers).",
   "type": "module",
