@@ -20,7 +20,7 @@ User documentation: [English](./docs/en.md) · [Français](./docs/fr.md) · [Deu
 | **Withings health** (account)  | Every measure the account has, today's activity, last night's sleep, in bed (Sleep Analyzer) |
 | One per battery-powered device | Battery low                                                                                  |
 
-On Gladys 5.1+ it also extends the scene editor and the dashboard
+It requires Gladys 5.3+, and also extends the scene editor and the dashboard
 (`src/capabilities/`):
 
 | Capability     | Keys                                                                                 |

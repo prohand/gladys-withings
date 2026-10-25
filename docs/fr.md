@@ -30,7 +30,7 @@ plus tard est enregistrée à l'heure où vous êtes monté sur la balance.
 
 - Un compte Withings, avec vos appareils installés dans l'**application
   Withings** (Health Mate) et synchronisés.
-- Gladys **5.1** ou plus récent.
+- Gladys **5.3** ou plus récent.
 - En option : **Gladys Plus**, pour les notifications en temps réel (voir plus
   bas).
 

@@ -29,7 +29,7 @@ después se guarda a la hora en que se subió a la báscula.
 
 - Una cuenta Withings, con sus dispositivos configurados en la **app
   Withings** (Health Mate) y sincronizados.
-- Gladys **5.1** o posterior.
+- Gladys **5.3** o posterior.
 - Opcional: **Gladys Plus**, para las notificaciones en tiempo real (ver más
   abajo).
 

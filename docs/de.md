@@ -32,7 +32,7 @@ Waage standest.
 
 - Ein Withings-Konto, mit deinen Geräten in der **Withings-App** (Health Mate)
   eingerichtet und synchronisiert.
-- Gladys **5.1** oder neuer.
+- Gladys **5.3** oder neuer.
 - Optional: **Gladys Plus**, für Echtzeit-Benachrichtigungen (siehe unten).
 
 ## 1. Eine Withings-Entwickler-App erstellen

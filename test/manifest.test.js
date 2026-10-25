@@ -112,10 +112,54 @@ test('the manifest version is the package version, and the image is tagged with 
   assert.equal(manifest.docker_image, `ghcr.io/prohand/gladys-withings:${pkg.version}`);
 });
 
+// The store's controlled vocabulary of catalog shelves (2026-10): an unknown
+// key is only dropped with a warning there, so a typo would silently cost a shelf.
+const CATEGORIES = [
+  'climate',
+  'lighting',
+  'energy',
+  'security',
+  'multimedia',
+  'appliances',
+  'environment',
+  'protocols',
+  'network',
+  'notifications',
+  'assistants',
+  'services',
+  'transport',
+  'vehicles',
+  'servers',
+  'leisure',
+];
+
 test('capability fields and categories are declared with a Gladys that knows them', () => {
   const [major, minor] = minGladysVersion();
   assert.ok(major > 5 || (major === 5 && minor >= 1), 'widgets and scenes need Gladys >= 5.1.0');
+  if (['keywords', 'countries', 'music'].some((field) => field in manifest)) {
+    assert.ok(
+      major > 5 || (major === 5 && minor >= 3),
+      'keywords, countries and music need Gladys >= 5.3.0',
+    );
+  }
   assert.ok(manifest.categories.length >= 1 && manifest.categories.length <= 3);
+  assert.equal(new Set(manifest.categories).size, manifest.categories.length);
+  for (const category of manifest.categories) {
+    assert.ok(CATEGORIES.includes(category), `unknown category "${category}"`);
+  }
+});
+
+test('the search keywords follow the store rules, and no country restriction', () => {
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords) && keywords.length >= 1 && keywords.length <= 10);
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, keywords.length, 'keywords must be unique');
+  for (const keyword of normalized) {
+    assert.ok(keyword.length >= 2 && keyword.length <= 30, `keyword "${keyword}" (2 to 30)`);
+  }
+  // Withings devices are sold everywhere: `countries` would hide the
+  // integration from the catalog of every other country.
+  assert.equal(manifest.countries, undefined);
 });
 
 test('Withings is a cloud service: the transport tag is cloud only', () => {
