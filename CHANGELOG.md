@@ -6,6 +6,15 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Search keywords for the Gladys catalog (Health Mate, Body Cardio, ScanWatch, Sleep Analyzer…).
+
+### Changed
+
+- Gladys 5.3.0 or later is now required (the catalog keywords need it).
+- `@gladysassistant/integration-sdk` updated to 0.16.0.
+
 ## [1.0.2] - 2026-10-23
 
 - Maintenance release, no functional change.

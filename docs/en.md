@@ -29,7 +29,7 @@ stored at the time you stepped on the scale.
 
 - A Withings account, with your devices set up in the **Withings app** (Health
   Mate) and synchronized.
-- Gladys **5.1** or later.
+- Gladys **5.3** or later.
 - Optional: **Gladys Plus**, for real-time notifications (see below).
 
 ## 1. Create a Withings developer app
