@@ -8,8 +8,8 @@
     "de": "Gewicht, Blutdruck, Aktivität und Schlaf deiner Withings-Waagen, -Uhren und -Messgeräte.",
     "es": "Peso, tensión, actividad y sueño de sus básculas, relojes y tensiómetros Withings."
   },
-  "version": "1.0.2",
-  "docker_image": "ghcr.io/prohand/gladys-withings:1.0.2",
+  "version": "1.1.0",
+  "docker_image": "ghcr.io/prohand/gladys-withings:1.1.0",
   "gladys_version": ">=5.3.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-withings/main/cover.png",
   "categories": ["services"],
